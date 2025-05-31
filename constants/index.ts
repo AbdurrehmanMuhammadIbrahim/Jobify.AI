@@ -104,7 +104,7 @@ export const interviewer: CreateAssistantDTO = {
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
-    language: "multi",
+    language: "en",
   },
   voice: {
     provider: "11labs",

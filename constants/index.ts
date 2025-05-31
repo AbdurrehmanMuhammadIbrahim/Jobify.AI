@@ -249,7 +249,8 @@ export const generator =
         }
       },
       "tool": {
-        "url": "https://jobify-ai-oil6.vercel.app/api/vapi/generate",
+        "url": "https://jobify-ai-ivory.vercel.app/api/vapi/generate",
+        // "url":"http://localhost:3000/api/vapi/generate",
         "body": {
           "type": "object",
           "properties": {

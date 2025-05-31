@@ -151,8 +151,8 @@ const handleCall = async () => {
             username: userName,
             userid: userId,
           },
-        //   clientMessages: ["transcript"],
-        //   serverMessages: [],
+          clientMessages: ["transcript"],
+          serverMessages: [],
         },
         undefined,
         generator
@@ -169,8 +169,8 @@ const handleCall = async () => {
         variableValues: {
           questions: formattedQuestions,
         },
-        // clientMessages: ["transcript"],
-        // serverMessages: [],
+        clientMessages: ["transcript"],
+        serverMessages: [],
       });
     }
   };

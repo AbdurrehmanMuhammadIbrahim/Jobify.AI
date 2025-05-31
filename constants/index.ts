@@ -155,6 +155,197 @@ End the conversation on a polite and positive note.
   },
 };
 
+export const generator = 
+{
+  "name": "interviewer",
+  "nodes": [
+    {
+      "name": "start_node",
+      "type": "start",
+      "metadata": {
+        "position": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "name": "say",
+      "type": "say",
+      "metadata": {
+        "position": {
+          "x": -130.65077736388204,
+          "y": 91.44660384826821
+        }
+      },
+      "prompt": "",
+      "exact": "Hello,{{username}}! Let's prepare your interview. I will ask you a few questions and generate a perfect interview just for you. Are you ready"
+    },
+    {
+      "name": "conversation_1748621146202",
+      "type": "conversation",
+      "metadata": {
+        "position": {
+          "x": -103.6796277394987,
+          "y": 311.16409614430177
+        }
+      },
+      "prompt": "Greet the user and help them create a new AI Interviewer.",
+      "model": {
+        "model": "gpt-4o",
+        "provider": "openai",
+        "maxTokens": 1000,
+        "temperature": 0.7
+      },
+      "variableExtractionPlan": {
+        "output": [
+          {
+            "enum": [
+              "entry",
+              "mid",
+              "senior"
+            ],
+            "type": "string",
+            "title": "level",
+            "description": "The job experience level."
+          },
+          {
+            "enum": [],
+            "type": "number",
+            "title": "amount",
+            "description": "How many questions would you like to generate? "
+          },
+          {
+            "enum": [],
+            "type": "string",
+            "title": "techstack",
+            "description": "A list of technologies to cover during the job interview. For example, React, Next.js, Express.js, Node and so on…"
+          },
+          {
+            "enum": [],
+            "type": "string",
+            "title": "role",
+            "description": "What role should would you like to train for? For example Frontend, Backend, Fullstack, Design, UX?"
+          },
+          {
+            "enum": [],
+            "type": "string",
+            "title": "type",
+            "description": "What type of the interview should it be? "
+          }
+        ]
+      },
+      "messagePlan": {
+        "firstMessage": ""
+      }
+    },
+    {
+      "name": "API Request",
+      "type": "tool",
+      "metadata": {
+        "position": {
+          "x": -70.7680706716032,
+          "y": 549.5937656518214
+        }
+      },
+      "tool": {
+        "url": "https://jobify-ai-oil6.vercel.app/api/vapi/generate",
+        "body": {
+          "type": "object",
+          "properties": {
+            "role": {
+              "type": "string",
+              "value": "{{role}}",
+              "description": ""
+            },
+            "type": {
+              "type": "string",
+              "value": "{{type}}",
+              "description": ""
+            },
+            "level": {
+              "type": "string",
+              "value": "{{level}}",
+              "description": ""
+            },
+            "amount": {
+              "type": "string",
+              "value": "{{amount}}",
+              "description": ""
+            },
+            "userid": {
+              "type": "string",
+              "value": "{{userid}}",
+              "description": ""
+            },
+            "techstack": {
+              "type": "string",
+              "value": "{{techstack}}",
+              "description": ""
+            }
+          }
+        },
+        "name": "Endpoint",
+        "type": "apiRequest",
+        "method": "POST",
+        "function": {
+          "name": "untitled_tool",
+          "parameters": {
+            "type": "object",
+            "required": [],
+            "properties": {}
+          }
+        }
+      }
+    },
+    {
+      "name": "hangup_1748630680957",
+      "type": "tool",
+      "metadata": {
+        "position": {
+          "x": 21.231929328396802,
+          "y": 799.5937656518214
+        }
+      },
+      "tool": {
+        "type": "endCall"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "start_node",
+      "to": "say"
+    },
+    {
+      "from": "say",
+      "to": "conversation_1748621146202",
+      "condition": {
+        "type": "ai",
+        "prompt": "if the user said yes"
+      }
+    },
+    {
+      "from": "conversation_1748621146202",
+      "to": "API Request",
+      "condition": {
+        "type": "ai",
+        "prompt": "What type of the interview should it be? "
+      }
+    },
+    {
+      "from": "API Request",
+      "to": "hangup_1748630680957",
+      "condition": {
+        "type": "ai",
+        "prompt": "if the user said yes"
+      }
+    }
+  ],
+  "globalPrompt": ""
+}
+
+
 
 export const feedbackSchema = z.object({
   totalScore: z.number(),

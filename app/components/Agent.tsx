@@ -85,31 +85,61 @@ const Agent = ({ userName, userId, type, interviewId, questions }: AgentProps) =
         }
     }, [messages, callStatus, type, userId]);
 
-    const handleCall = async () => {
-        setCallStatus(CallStatus.CONNECTING);
-            if(type ==='generate') {
-            await vapi.start("aa63cae2-8fb5-489a-af04-5d70c19a210a", {
-                variableValues: {
-                    username: userName,
-                    userid: userId,
-                }
-            })
-        } else {
-            let formattedQuestions = '';
+    // const handleCall = async () => {
+    //     setCallStatus(CallStatus.CONNECTING);
+    //         if(type ==='generate') {
+    //         await vapi.start("aa63cae2-8fb5-489a-af04-5d70c19a210a", {
+    //             variableValues: {
+    //                 username: userName,
+    //                 userid: userId,
+    //             }
+    //         })
+    //     } else {
+    //         let formattedQuestions = '';
 
-            if(questions) {
-                formattedQuestions = questions
-                    .map((question) => `- ${question}`)
-                    .join('\n');
-            }
+    //         if(questions) {
+    //             formattedQuestions = questions
+    //                 .map((question) => `- ${question}`)
+    //                 .join('\n');
+    //         }
          
-            await vapi.start(interviewer, {
-                variableValues: {
-                    questions: formattedQuestions
-                }
-            })
-        }
+    //         await vapi.start(interviewer, {
+    //             variableValues: {
+    //                 questions: formattedQuestions
+    //             }
+    //         })
+    //     }
+    // }
+
+    const handleCall = async () => {
+  setCallStatus(CallStatus.CONNECTING);
+
+  if (type === 'generate') {
+    await vapi.start({
+      assistantId: "aa63cae2-8fb5-489a-af04-5d70c19a210a",
+      variableValues: {
+        username: userName,
+        userid: userId,
+      }
+    });
+  } else {
+    let formattedQuestions = '';
+
+    if (questions) {
+      formattedQuestions = questions
+        .map((question) => `- ${question}`)
+        .join('\n');
     }
+
+    await vapi.start({
+      assistantId: interviewer,
+      variableValues: {
+        questions: formattedQuestions
+      }
+    });
+  }
+};
+
 
     const handleDisconnect = async () => {
         setCallStatus(CallStatus.FINISHED);

@@ -1,3 +1,4 @@
+// "use client"
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,7 +11,7 @@ import {
   getLatestInterviews,
 } from "@/lib/actions/general.action";
 
-async function Home() {
+const Home = async() => {
   const user = await getCurrentUser();
 
   const [userInterviews, allInterview] = await Promise.all([

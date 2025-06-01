@@ -267,7 +267,7 @@
   }
 
   .auth-layout {
-    @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
+    @apply flex items-center justify-center my-5 mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
   }
 
   .root-layout {
@@ -304,7 +304,7 @@
 }
 
 @utility dark-gradient {
-  @apply bg-gradient-to-b from-[#1A1C20] to-[#08090D];
+  @apply bg-gradient-to-b from-[#c39911] to-[#d24104];
 }
 
 @utility border-gradient {

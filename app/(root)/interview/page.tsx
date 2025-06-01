@@ -6,6 +6,7 @@ import { getCurrentUser } from "../../../lib/actions/auth.action";
 
 const Page = async () => {
       const user = await getCurrentUser();
+      console.log("User:", user);
 
     return (
         <>
@@ -15,7 +16,7 @@ const Page = async () => {
                userId={user?.id}
         userName={user?.name!}
      
-        // profileImage={user?.profileURL}
+        profileImage={user?.profileURL!}
         type="generate"
       />
         </>

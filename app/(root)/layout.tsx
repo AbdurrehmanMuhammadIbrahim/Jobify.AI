@@ -1,20 +1,32 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { ReactNode } from 'react'
+import Link from "next/link";
+import Image from "next/image";
+import { ReactNode } from "react";
+import { redirect } from "next/navigation";
 
-const RootLayout = ({children}:{children : ReactNode}) => {
+import { isAuthenticated, signOut } from "@/lib/actions/auth.action";
+import { Button } from "@/components/ui/button";
+
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) redirect("/sign-in");
+  
+
   return (
-     <div className="root-layout">
-            <nav>
-                <Link href="/"  className="flex items-center gap-2" >
-                    <Image src="/logo.png" alt="Logo" width={38} height={32} />
-                    <h2 className="text-primary-100">logify.ai</h2>
-                </Link>
-            </nav>
+    <div className="root-layout">
+      <nav className="flex">
+        <Link href="/" className="flex items-center gap-2">
+          <Image src="/logo.png" alt="MockMate Logo" width={38} height={32} />
+          <h2 className="text-primary-100">Logify.ai</h2>
+        </Link>
 
-            {children}
-        </div>
-  )
-}
+        <Button asChild className="btn-primary ml-auto" onClick={signOut}>
+            <Link href="/interview">Logout</Link>
+          </Button><button> </button>
+      </nav>
 
-export default RootLayout
+      {children}
+    </div>
+  );
+};
+
+export default Layout;

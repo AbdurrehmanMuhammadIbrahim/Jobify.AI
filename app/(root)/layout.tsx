@@ -20,7 +20,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
         </Link>
 
         <Button asChild className="btn-primary ml-auto" onClick={signOut}>
-            <Link href="/interview">Logout</Link>
+            Logout
           </Button><button> </button>
       </nav>
 

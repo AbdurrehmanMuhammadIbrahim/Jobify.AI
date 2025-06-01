@@ -19,9 +19,11 @@ const Layout = async ({ children }: { children: ReactNode }) => {
           <h2 className="text-primary-100">Logify.ai</h2>
         </Link>
 
-        <Button asChild className="btn-primary ml-auto" onClick={signOut}>
-            Logout
-          </Button><button> </button>
+        <Button className="btn-primary ml-auto" onClick={signOut}>
+          Logout
+          </Button>
+         
+
       </nav>
 
       {children}
